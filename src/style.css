@@ -177,8 +177,20 @@ a.rounded{
     box-shadow: 5px 5px 40px rgba(0, 0, 0, 0.05);
 }
 
+@media (min-width: 787px){
+    .cjco-ei-popup-fullscreen .cjco-ei-popup-btn-wrap{
+        gap: 16px;
+    }
+    .cjco-ei-popup-fullscreen .cjco-ei-popup-button{
+        padding: 16px 44px;
+    }
+}
+
 @media (max-width: 786px){
     .cjco-ei-popup-inner{
+        max-height: 90vh;
+    }
+    .cjco-ei-popup-inner.cjco-ei-popup-fullscreen{
         max-height: 100vh;
     }
     .cjco-ei-popup-inner-grid{
@@ -205,10 +217,13 @@ a.rounded{
 }
 
 @media (max-width: 480px){
+    .cjco-ei-popup-img-col{
+        height: auto;
+    }
     .cjco-ei-popup-content-wrapper{
         text-align: center;
     }
-    .cjco-ei-popup-content-wrapper .cjco-ei-popup-heading{
+    .cjco-ei-popup-content-wrapper .cjco-ei-popup-heading, .cjco-ei-popup-fullscreen .cjco-ei-popup-content-wrapper .cjco-ei-popup-heading{
         font-size: 24px;
     }
     .cjco-ei-popup-btn-wrap{

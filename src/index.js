@@ -1,7 +1,7 @@
 require('./style.css')
 const {gsap} = require("gsap")
 
-const myFunction = (data) =>{
+const exitIntentPopup = (data) =>{
 
     // Headline: Read This Before You go
     // Body: We noticed you were going somewhere. We wanted to show you this last minute pop-up. We’d really love to help you.
@@ -71,11 +71,17 @@ const myFunction = (data) =>{
     // columns (left)
     var popupInnerCol1 = document.createElement('div')
     popupInnerCol1.classList.add('cjco-ei-popup-col', 'cjco-ei-popup-col-left');
+    if(imgColumn != "right"){
+        popupInnerCol1.classList.add('cjco-ei-popup-img-col');
+    }
     popupInnerGrid.append(popupInnerCol1);
 
     // columns (right)
     var popupInnerCol2 = document.createElement('div')
     popupInnerCol2.classList.add('cjco-ei-popup-col', 'cjco-ei-popup-col-right');
+    if(imgColumn == "right"){
+        popupInnerCol1.classList.add('cjco-ei-popup-img-col');
+    }
     popupInnerGrid.append(popupInnerCol2);
 
     // image wrapper
@@ -178,7 +184,6 @@ const myFunction = (data) =>{
             if (!lastVisit || currentTimestamp - lastVisit >= intervalInMills) {
                 if (!isExitIntentShown) {
                     isExitIntentShown = true;
-                    document.removeEventListener('mouseout', mouseOutEvent);
                     localStorage.setItem('lastVisit', currentTimestamp);
                     showPopup();
                 }
@@ -186,7 +191,6 @@ const myFunction = (data) =>{
         }else{
             if (!isExitIntentShown) {
                 isExitIntentShown = true;
-                document.removeEventListener('mouseout', mouseOutEvent);
                 localStorage.setItem('lastVisit', currentTimestamp);
                 showPopup();
             }
@@ -197,23 +201,64 @@ const myFunction = (data) =>{
     const mouseOutEvent = e => {
         mouseY = e.clientY;
         if (!e.toElement && !e.relatedTarget) {
-            handleExitIntent()
+            if(mainPopupWrapper){
+                handleExitIntent()
+            }else{
+                window.addEventListener("DOMContentLoaded", () => {
+                    handleExitIntent()
+                })
+            }
         }
     };
 
-    window.addEventListener('touchmove', function(e) {
-        if (!isExitIntentShown) {
-          handleExitIntent();
+    // on mobile popup handle
+    var touchStartY = 0;
+    var touchStartTime = 0;
+
+    window.addEventListener("touchstart", function(event) {
+        mainPopupWrapper.classList.add('mobile-popup');
+        touchStartY = event.touches[0].clientY;
+        touchStartTime = Date.now();
+    });
+
+    window.addEventListener('touchend', function(e) {
+        var touchEndY = event.changedTouches[0].clientY;
+        var touchEndTime = Date.now();
+        var deltaY = touchEndY - touchStartY;
+        var duration = touchEndTime - touchStartTime;
+        var velocity = Math.abs(deltaY / duration);
+
+        // Set a threshold for scroll velocity and deltaY distance
+        var velocityThreshold = 0.5; // Adjust as needed
+        var deltaYThreshold = 200; // Adjust as needed
+
+        // console.log(deltaY);
+
+        if (velocity >= velocityThreshold && Math.abs(deltaY) >= deltaYThreshold) {
+            if (deltaY > 0) {
+                if(mainPopupWrapper){
+                    handleExitIntent()
+                }else{
+                    window.addEventListener("DOMContentLoaded", () => {
+                        handleExitIntent()
+                    })
+                }
+            } else {
+            // User is scrolling down, handle the exit intent here
+            }
         }
+
+        
     });
 
     document.addEventListener('mouseout', mouseOutEvent);
     closeButton.addEventListener('click', closePopup)
     popupBackdrop.addEventListener('click', closePopup)
+    
 }
 
 module.exports = {
     intent: function (data) {
-        new myFunction(data);
+        new exitIntentPopup(data);
     }
 }
