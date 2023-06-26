@@ -225,6 +225,10 @@ a.rounded{
     }
     .cjco-ei-popup-content-wrapper .cjco-ei-popup-heading, .cjco-ei-popup-fullscreen .cjco-ei-popup-content-wrapper .cjco-ei-popup-heading{
         font-size: 24px;
+        margin-bottom: 16px;
+    }
+    .cjco-ei-popup-content-wrapper .cjco-ei-popup-body-text{
+        margin-bottom: 20px;
     }
     .cjco-ei-popup-btn-wrap{
         justify-content: center;

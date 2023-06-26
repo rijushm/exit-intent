@@ -177,21 +177,22 @@ const exitIntentPopupHandle = (data) =>{
 
     function handleExitIntent() {
 
-        var lastVisit = localStorage.getItem('lastVisit');
+        var storageName = "cjco-exit-intent-last-visit";
+        var lastVisit = localStorage.getItem(storageName);
         var currentTimestamp = Date.now();
 
         if(day_interval){
             if (!lastVisit || currentTimestamp - lastVisit >= intervalInMills) {
                 if (!isExitIntentShown) {
                     isExitIntentShown = true;
-                    localStorage.setItem('lastVisit', currentTimestamp);
+                    localStorage.setItem(storageName, currentTimestamp);
                     showPopup();
                 }
             }
         }else{
             if (!isExitIntentShown) {
                 isExitIntentShown = true;
-                localStorage.setItem('lastVisit', currentTimestamp);
+                localStorage.setItem(storageName, currentTimestamp);
                 showPopup();
             }
         }
