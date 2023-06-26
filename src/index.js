@@ -1,7 +1,7 @@
 require('./style.css')
 const {gsap} = require("gsap")
 
-const exitIntentPopup = (data) =>{
+const exitIntentPopupHandle = (data) =>{
 
     // Headline: Read This Before You go
     // Body: We noticed you were going somewhere. We wanted to show you this last minute pop-up. We’d really love to help you.
@@ -201,13 +201,7 @@ const exitIntentPopup = (data) =>{
     const mouseOutEvent = e => {
         mouseY = e.clientY;
         if (!e.toElement && !e.relatedTarget) {
-            if(mainPopupWrapper){
-                handleExitIntent()
-            }else{
-                window.addEventListener("DOMContentLoaded", () => {
-                    handleExitIntent()
-                })
-            }
+            handleExitIntent()
         }
     };
 
@@ -236,13 +230,7 @@ const exitIntentPopup = (data) =>{
 
         if (velocity >= velocityThreshold && Math.abs(deltaY) >= deltaYThreshold) {
             if (deltaY > 0) {
-                if(mainPopupWrapper){
-                    handleExitIntent()
-                }else{
-                    window.addEventListener("DOMContentLoaded", () => {
-                        handleExitIntent()
-                    })
-                }
+                handleExitIntent()
             } else {
             // User is scrolling down, handle the exit intent here
             }
@@ -255,6 +243,16 @@ const exitIntentPopup = (data) =>{
     closeButton.addEventListener('click', closePopup)
     popupBackdrop.addEventListener('click', closePopup)
     
+}
+
+const exitIntentPopup = (data) =>{
+    if(document.body){
+        exitIntentPopupHandle(data);
+    }else{
+        window.addEventListener("DOMContentLoaded", () => {
+            exitIntentPopupHandle(data);
+        })
+    }
 }
 
 module.exports = {
