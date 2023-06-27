@@ -56,6 +56,7 @@ a.rounded{
     max-width: 992px;
     position: relative;
     z-index: 10;
+    box-shadow: 5px 5px 40px rgba(0, 0, 0, 0.05);
 }
 .cjco-ei-popup-inner.cjco-ei-popup-fullscreen{
     width: 100%;
@@ -228,7 +229,7 @@ a.rounded{
         margin-bottom: 16px;
     }
     .cjco-ei-popup-content-wrapper .cjco-ei-popup-body-text{
-        margin-bottom: 20px;
+        margin-bottom: 24px;
     }
     .cjco-ei-popup-btn-wrap{
         justify-content: center;

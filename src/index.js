@@ -3,11 +3,6 @@ const {gsap} = require("gsap")
 
 const exitIntentPopupHandle = (data) =>{
 
-    // Headline: Read This Before You go
-    // Body: We noticed you were going somewhere. We wanted to show you this last minute pop-up. We’d really love to help you.
-    // Button 1: Call 0412 123 123
-    // Button 2: Message <mailto:test@cjco.com.au|test@cjco.com.au>
-
     // assets from client
     var imgUrl = data.image
     var bgColor = data.background ? data.background : "#fff";
@@ -17,15 +12,15 @@ const exitIntentPopupHandle = (data) =>{
 
     var full_screen = data.full_screen
 
-    var btn1text = data.call.number;
-    var btn1Link = `tel:${data.call.number}`;
-    var btn1Bg = data.call.background ? data.call.background : "#5137de"
-    var btn1Color = data.call.color ? data.call.color : "white"
+    var btn1text = data.button1.text;
+    var btn1Link = data.button1.url;
+    var btn1Bg = data.button1.background ? data.button1.background : "#5137de"
+    var btn1Color = data.button1.color ? data.button1.color : "white"
 
-    var btn2text = data.message.text;
-    var btn2Link =  data.message.url;
-    var btn2Bg = data.message.background ? data.message.background : "#f1a233"
-    var btn2Color = data.message.color ? data.message.color : "white"
+    var btn2text = data.button2.text;
+    var btn2Link =  data.button2.url;
+    var btn2Bg = data.button2.background ? data.button2.background : "#f1a233"
+    var btn2Color = data.button2.color ? data.button2.color : "white"
 
     var radius = data.radius? data.radius : "default";
 
